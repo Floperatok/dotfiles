@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# asps (Audio Sink Port Switch) script by Floperatox
+
+if [ "$1" == "-h" ]; then
+	echo -e "asps v0.1 (Audio Sink Port Switch) script by Floperatox.
+Options:
+    -h\thelp
+    -v\tverbose
+asps uses pactl(1) to switch audio output between differents 
+ports of the same audio controller."
+	exit;
+fi
+
+# Current sink name
+CURRENT_SINK=$(pactl get-default-sink) 
+
+# Current sink infos 
+CURRENT_SINK_INFOS=$(pactl list sinks | 
+	grep -B2 -A9999 "Name: $CURRENT_SINK" | 
+	awk 'NF {print} !NF {exit}')
+
+# Current port in use
+CURRENT_PORT=$(echo "$CURRENT_SINK_INFOS" | 
+	grep "Active Port: " | 
+	awk '{gsub(/^[ \t]+|[ \t]+$/, ""); sub(/^Active Port: /, ""); print}')
+
+REAR_PORT="analog-output-lineout"
+FRONT_PORT="analog-output-headphones"
+
+if [ "$1" == "-v" ]; then
+	echo "Current sink : $CURRENT_SINK"
+	echo "Rear port    : $REAR_PORT"
+	echo "Front port   : $FRONT_PORT"
+	echo "Current port : $CURRENT_PORT"
+fi
+
+if [ "$1" == "--current-port" ]; then
+    echo $CURRENT_PORT
+    exit
+fi
+
+if [ "$CURRENT_PORT" == "$REAR_PORT" ]; then
+	echo "Switching to front port";
+	pactl set-sink-port $CURRENT_SINK $FRONT_PORT;
+elif [ "$CURRENT_PORT" == "$FRONT_PORT" ]; then
+	echo "Switching to rear port";
+	pactl set-sink-port $CURRENT_SINK $REAR_PORT;
+fi
