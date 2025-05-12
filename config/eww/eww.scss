@@ -1,3 +1,7 @@
+@import "bar/bar.scss"
+@import "powermenu/powermenu.scss"
+@import "desktopClock/desktopClock.scss"
+
 * {
 	all: unset; // Unsets everything so you can style everything from scratch
 	font-family: "JetBrainsMono Nerd Font";
@@ -6,58 +10,8 @@
 	border-width: 0;
 }
 
-// Global Styles
-.bar {
-	background: rgba(17, 29, 61, 0.0);
-	color: #99B6F2;
-	padding-left: 10px;
-	padding-right: 10px;
-	border-radius: 0 0 20px 20px
-}
 
-// Styles on classes (see eww.yuck for more information)
 
-.sidestuff slider {
-	all: unset;
-	color: #ffd5cd;
-}
-
-.metric scale trough highlight {
-	all: unset;
-	background-color: #5581D9;
-	color: #5d6e91;
-	border-radius: 5px;
-}
-
-.metric scale trough {
-	all: unset;
-	background-color: #212938;
-	border-radius: 50px;
-	min-height: 3px;
-	min-width: 70px;
-	margin-left: 5px;
-	margin-right: 20px;
-}
-
-.metric highlight:hover {
-	padding-top: 7px;
-}
-
-.workspaces {
-	padding-top: 8px;
-}
-.workspaces button:hover {
-	color: #5581D9;
-}
-.workspaces .workspace {
-	font-size:large;
-	color: #A9B5DF;
-	padding: 0px 10px 0px 10px;
-}
-.workspaces .inactive_workspace {
-	color: #556092;
-}
-
-.asps {
-	padding: 0 10 0 5;
+.testbox {
+	background-color: red;
 }

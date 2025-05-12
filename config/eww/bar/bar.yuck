@@ -1,0 +1,74 @@
+(defwidget bar []
+	(centerbox :orientation "h"
+		(left)
+		(music)
+		(right)))
+
+(defwidget powerbutton [] 
+	(button :class "powerbutton" :onclick "eww open-many --toggle powermenu"
+		(label :class "powerbutton_icon" :text "⏻"))
+)
+
+(defwidget right []
+	(box :class "right" :orientation "h" :space-evenly false :halign "end"
+		(button :class "asps" :onclick "asps" "${volumeOut}")
+		(metric :label ""
+			:value volume
+			:onchange "amixer -D pulse sset Master {}%")
+		(label :class "time" :text time)))
+		
+
+(deflisten workspace "scripts/workspaces.sh")
+(defwidget left []
+	(box :class "left" :orientation "h" :space-evenly false :halign "start"
+		(powerbutton)
+		(literal :content workspace)))
+
+
+
+
+(defwidget music []
+	(box :class "music"
+		:orientation "h"
+		:space-evenly false
+		:halign "center"
+	{music != "" ? "  ${music} " : ""}))
+
+  
+(defwidget metric [label value onchange]
+	(box :orientation "h"
+		:class "metric"
+		:space-evenly false
+	(box :class "label" label)
+	(scale :min 0
+			:max 101
+			:active {onchange != ""}
+			:value value
+			:onchange onchange)))
+
+  
+  
+(deflisten music :initial ""
+	"playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(defpoll volume :interval "0.1s"
+	"scripts/getvol.sh")
+
+(defpoll volumeOut :interval "0.1s"
+	"scripts/getvoloutput.sh")
+
+(defpoll time :interval "1s"
+	"date '+%H:%M:%S %b %d, %Y'")
+
+(defwindow bar
+	:monitor 1
+	:windowtype "dock"
+	:geometry (geometry :x "0%"
+						:y "0%"
+						:width "90%"
+						:height "40px"
+						:anchor "top center")
+	:reserve (struts :side "top" :distance "4%")
+	:exclusive true
+	:namespace "ewwbar"
+(bar))

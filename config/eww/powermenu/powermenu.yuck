@@ -1,0 +1,16 @@
+
+(defwidget powermenu []
+	(box :class "testbox"
+		(label :text "hello")))
+
+(defwindow powermenu
+	:monitor 1
+	:windowtype "dock"
+	:geometry (geometry :x "50%"
+						:y "30%"
+						:width "30%"
+						:height "30%"
+						:anchor "top center")
+	:reserve (struts :side "top" :distance "4%")
+	:namespace "ewwpowermenu"
+(powermenu))
