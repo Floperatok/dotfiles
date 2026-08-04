@@ -4,21 +4,27 @@
 		(music)
 		(right)))
 
+(defwidget powerbutton [] 
+	(button :class "powerbutton" :onclick "eww open-many --toggle powermenu"
+		(label :class "powerbutton_icon" :text "⏻"))
+)
+
 (defwidget right []
 	(box :class "right" :orientation "h" :space-evenly false :halign "end"
-		(button :class "wifi" :onclick "nm-side2bar --toggle" "${wifi}")
-		(button :class "battery" "${battery}")
 		(button :class "asps" :onclick "asps" "${volumeOut}")
 		(metric :label ""
 			:value volume
-			:onchange "amixer sset Master {}%")
+			:onchange "amixer -D pulse sset Master {}%")
 		(label :class "time" :text time)))
 		
 
 (deflisten workspace "scripts/workspaces.sh")
 (defwidget left []
 	(box :class "left" :orientation "h" :space-evenly false :halign "start"
+		(powerbutton)
 		(literal :content workspace)))
+
+
 
 
 (defwidget music []
@@ -54,15 +60,8 @@
 (defpoll time :interval "1s"
 	"date '+%H:%M:%S %b %d, %Y'")
 
-(defpoll battery :interval "1s"
-	"scripts/getbattery.sh")
-
-(defpoll wifi :interval "1s"
-	"scripts/getwifi.sh")
-
-
 (defwindow bar
-	:monitor 0
+	:monitor 1
 	:windowtype "dock"
 	:geometry (geometry :x "0%"
 						:y "0%"

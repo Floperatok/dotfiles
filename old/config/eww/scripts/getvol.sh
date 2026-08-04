@@ -8,5 +8,5 @@ if command -v pamixer &>/dev/null; then
         pamixer --get-volume
     fi
 else
-    amixer sget Master | awk -F'[][]' '/Mono:/ {print $2}' | tr -d '%'
+    amixer -D pulse sget Master | awk -F '[^0-9]+' '/Left:/{print $3}'
 fi

@@ -1,2 +1,3 @@
 (include "bar/bar.yuck")
+(include "powermenu/powermenu.yuck")
 (include "desktopClock/desktopClock.yuck")

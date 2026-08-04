@@ -9,6 +9,7 @@
 
 // Styles on classes (see eww.yuck for more information)
 
+
 .powerbutton {
     padding: 0 15 0 13;
     margin-right: 5;
@@ -37,14 +38,14 @@
 	all: unset;
 	background-color: #212938;
 	border-radius: 50px;
-	min-height: 5px;
+	min-height: 3px;
 	min-width: 70px;
 	margin-left: 5px;
 	margin-right: 20px;
 }
 
 .metric highlight:hover {
-	padding-top: 15px;
+	padding-top: 7px;
 }
 
 .workspaces {
@@ -68,16 +69,4 @@
 
 .asps:hover {
 	color: #5581D9;
-}
-
-.wifi {
-	padding: 0 15 0 5;
-}
-
-.wifi:hover {
-	color: #5581D9;
-}
-
-.battery {
-	padding: 0 20 0 10;
 }

@@ -1,0 +1,24 @@
+
+(defwidget clock []
+	(box :class "desktopClock" :orientation "v"
+		(label :class "desktopTime" :text desktopTime)
+		(label :class "desktopDate" :text desktopDate)))
+
+
+(defpoll desktopTime :interval "1s"
+	"date '+%H:%M:%S'")
+(defpoll desktopDate :interval "1s"
+	"date '+%A'")
+
+(defwindow desktopClock
+	:monitor 1
+	:windowtype "normal"
+	:geometry (geometry :x "67%"
+						:y "30%"
+						:width "20%"
+						:height "10%"
+						:anchor "top left")
+	:stacking "bg"
+	:exclusive false
+	:namespace "ewwdesktopClock"
+(clock))

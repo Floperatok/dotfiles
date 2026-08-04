@@ -8,9 +8,9 @@ print_workspaces() {
 	active_workspace=$(hyprctl activeworkspace -j | jq '.id')
 	while [ $i -le $NB_WORKSPACES ]; do
 		if [ $i -eq $active_workspace ]; then
-			echo -n "(button :class \"active_workspace workspace\" :onclick \"hyprctl dispatch 'hl.dsp.focus({ workspace = $i })'\" (label :text \"$i\" :class \"dot\")) "
+			echo -n "(button :class \"active_workspace workspace\" :onclick \"hyprctl dispatch workspace $i\" (label :text \"$i\" :class \"dot\")) "
 		else
-			echo -n "(button :class \"inactive_workspace workspace\" :onclick \"hyprctl dispatch 'hl.dsp.focus({ workspace = $i })'\" (label :text \"$i\" :class \"dot\")) "
+			echo -n "(button :class \"inactive_workspace workspace\" :onclick \"hyprctl dispatch workspace $i\" (label :text \"$i\" :class \"dot\")) "
 		fi
 		i=$((i + 1))
 	done
