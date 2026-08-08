@@ -7,8 +7,6 @@
 	border-radius: 0 0 20px 20px
 }
 
-// Styles on classes (see eww.yuck for more information)
-
 .powerbutton {
     padding: 0 15 0 13;
     margin-right: 5;
@@ -26,14 +24,14 @@
 	color: #ffd5cd;
 }
 
-.metric scale trough highlight {
+.sound_bar scale trough highlight {
 	all: unset;
 	background-color: #5581D9;
 	color: #5d6e91;
 	border-radius: 5px;
 }
 
-.metric scale trough {
+.sound_bar scale trough {
 	all: unset;
 	background-color: #212938;
 	border-radius: 50px;
@@ -43,7 +41,7 @@
 	margin-right: 20px;
 }
 
-.metric highlight:hover {
+.sound_bar highlight:hover {
 	padding-top: 15px;
 }
 
@@ -66,7 +64,7 @@
 	padding: 0 10 0 5;
 }
 
-.asps:hover {
+.asps:hover, .mute:hover, .wifi:hover {
 	color: #5581D9;
 }
 
@@ -74,10 +72,11 @@
 	padding: 0 15 0 5;
 }
 
-.wifi:hover {
-	color: #5581D9;
-}
-
 .battery {
 	padding: 0 20 0 10;
 }
+
+.mute {
+	padding: 0 10 0 0;
+}
+

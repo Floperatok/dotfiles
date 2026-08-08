@@ -1,75 +1,89 @@
 (defwidget bar []
 	(centerbox :orientation "h"
 		(left)
-		(music)
-		(right)))
+		(center)
+		(right)
+	)
+)
+
+(defwidget center [](box))
 
 (defwidget right []
 	(box :class "right" :orientation "h" :space-evenly false :halign "end"
-		(button :class "wifi" :onclick "nm-side2bar --toggle" "${wifi}")
-		(button :class "battery" "${battery}")
-		(button :class "asps" :onclick "asps" "${volumeOut}")
-		(metric :label ""
-			:value volume
-			:onchange "amixer sset Master {}%")
-		(label :class "time" :text time)))
-		
 
-(deflisten workspace "scripts/workspaces.sh")
+		(button :class "wifi" 
+			:onclick "/home/nikotine/a" 
+			wifi_icon
+		)
+
+		(button :class "battery" battery_level)
+		
+		(button :class "mute" 
+			:onclick "wpctl set-mute @DEFAULT_SINK@ toggle" 
+			mute_icon
+		)
+
+		(sound_bar 
+			:label ""
+			:volume volume
+			:onchange "wpctl set-volume @DEFAULT_SINK@ {}"
+		)
+
+		(label :class "time" :text time)
+	)
+)
+
 (defwidget left []
 	(box :class "left" :orientation "h" :space-evenly false :halign "start"
-		(literal :content workspace)))
+		(literal :content workspace)
+	)
+)
 
-
-(defwidget music []
-	(box :class "music"
-		:orientation "h"
-		:space-evenly false
-		:halign "center"
-	{music != "" ? "  ${music} " : ""}))
-
-  
-(defwidget metric [label value onchange]
+(defwidget sound_bar [label volume onchange]
 	(box :orientation "h"
-		:class "metric"
+		:class "sound_bar"
 		:space-evenly false
-	(box :class "label" label)
-	(scale :min 0
-			:max 101
+		(scale 
+			:min 0
+			:max 2
+			:round-digits 2
 			:active {onchange != ""}
-			:value value
-			:onchange onchange)))
+			:value volume
+			:onchange onchange
+		)
+	)
+)
 
-  
-  
-(deflisten music :initial ""
-	"playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+(deflisten workspace "scripts/workspaces_listener.sh")
 
-(defpoll volume :interval "0.1s"
-	"scripts/getvol.sh")
+(deflisten mute_icon "scripts/mute_listener.sh")
 
-(defpoll volumeOut :interval "0.1s"
-	"scripts/getvoloutput.sh")
+(deflisten volume "scripts/volume_listener.sh")
 
 (defpoll time :interval "1s"
-	"date '+%H:%M:%S %b %d, %Y'")
+	"date '+%H:%M:%S %b %d, %Y'"
+)
 
-(defpoll battery :interval "1s"
-	"scripts/getbattery.sh")
+(defpoll battery_level :interval "1s"
+	"scripts/getbattery.sh"
+)
 
-(defpoll wifi :interval "1s"
-	"scripts/getwifi.sh")
-
+(defpoll wifi_icon :interval "1s"
+	"scripts/getwifi.sh"
+)
 
 (defwindow bar
 	:monitor 0
 	:windowtype "dock"
-	:geometry (geometry :x "0%"
-						:y "0%"
-						:width "90%"
-						:height "40px"
-						:anchor "top center")
+	:geometry (
+		geometry :x "0%"
+		:y "0%"
+		:width "90%"
+		:height "40px"
+		:anchor "top center"
+	)
 	:reserve (struts :side "top" :distance "4%")
 	:exclusive true
 	:namespace "ewwbar"
-(bar))
+	(bar)
+)
