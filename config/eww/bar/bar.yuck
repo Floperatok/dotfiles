@@ -12,7 +12,7 @@
 	(box :class "right" :orientation "h" :space-evenly false :halign "end"
 
 		(button :class "wifi" 
-			:onclick "/home/nikotine/a" 
+			:onclick "scripts/open_sidebar.sh" 
 			wifi_icon
 		)
 
